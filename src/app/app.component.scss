@@ -1,6 +1,22 @@
 ion-menu ion-content {
   --background: var(--ion-item-background, var(--ion-background-color, #fff));
 }
+/* Dalam file .scss atau .css */
+ion-button {
+  // Gaya umum untuk tombol
+  padding: 10px;
+  margin: 5px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+}
+
+ion-button:hover {
+  // Gaya saat kursor berada di atas tombol
+  background-color: #0056b3;
+}
+
 
 ion-menu.md ion-content {
   --padding-start: 8px;
