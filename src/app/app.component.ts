@@ -13,12 +13,12 @@ export class AppComponent {
 
   // Daftar halaman menu
   public appPages = [
-    { title: 'Penduduk', url: '/penduduk', icon: 'mail' },
-    { title: 'Info', url: '/folder/outbox', icon: 'paper-plane' },
-    { title: 'Iuran', url: '/folder/favorites', icon: 'heart' },
-    { title: 'Pesan', url: '/folder/archived', icon: 'mail' },
-    { title: 'Trash', url: '/folder/trash', icon: 'trash' },
-    { title: 'Spam', url: '/folder/spam', icon: 'warning' },
+    { title: 'Penduduk', url: '/penduduk', icon: 'people' },
+    { title: 'Info', url: '/info', icon: 'information' },
+    { title: 'Iuran', url: '/iuran', icon: 'cash' },
+    { title: 'Pesan', url: '/pesan', icon: 'chatbox' },
+    { title: 'Blok', url: '/blok', icon: 'home' },
+    // { title: 'Spam', url: '/folder/spam', icon: 'warning' },
   ];
 
   // Fungsi untuk memicu tampilan dan penyembunyian side menu

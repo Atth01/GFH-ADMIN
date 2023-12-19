@@ -1,13 +1,23 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>iuran</ion-title>
+  <ion-toolbar class="custom-header">
+    <ion-title class="ion-text-light custom-title text-center">Iuran</ion-title>
+    <ion-buttons slot="start" color="light" class="custom-menu-button">
+      <ion-menu-button style="color:white"></ion-menu-button>
+    </ion-buttons>    
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">iuran</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content style="--background: url('../../assets/bg1.jpg') center center / cover no-repeat;" [fullscreen]="true">
+  <ion-refresher slot="fixed">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <ion-card class="notification-card" *ngFor="let data of infoData">
+    <ion-card-header>
+      <ion-card-title class="white-text">{{ data.jenis_pembayaran }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>{{ data.keterangan }}</p>
+      <!-- You can add other properties here -->
+    </ion-card-content>
+  </ion-card>
 </ion-content>

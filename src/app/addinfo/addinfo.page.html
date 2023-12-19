@@ -1,0 +1,35 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="custom-header">
+    <ion-title class="ion-text-light custom-title text-center">Add_Info</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="goToInfoPage()" style="color:aliceblue">
+        <ion-icon style="color:white" slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="start" color="light" class="custom-menu-button">
+      <ion-menu-button style="color:aliceblue"></ion-menu-button>
+    </ion-buttons>    
+  </ion-toolbar>
+</ion-header>
+
+<ion-content style="--background: url('../../assets/bg1.jpg') center center / cover no-repeat;" [fullscreen]="true">
+  <div class="container d-block justify-content-center py-3">
+    <ion-item>
+      <ion-label position="stacked">Judul_info</ion-label>
+      <ion-input [(ngModel)]="judul_info" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="stacked">Info</ion-label>
+      <ion-input [(ngModel)]="informasi" required></ion-input>
+    </ion-item>  
+    <ion-item>
+      <ion-label position="stacked">Tanggal_Info</ion-label>
+      <ion-input type="date" [(ngModel)]="tgl_info" required></ion-input>
+    </ion-item>   
+    <div class="form-group mt-3">
+      <button (click)="addNewInfo()" class="form-control btn" style="background: linear-gradient(to bottom, #00e51f, #005d2a); color:white;">
+        Tambah Data
+      </button>
+    </div>
+  </div>
+</ion-content>

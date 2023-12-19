@@ -26,6 +26,30 @@ const routes: Routes = [
   {
     path: 'pesan',
     loadChildren: () => import('./pesan/pesan.module').then( m => m.PesanPageModule)
+  },
+  {
+    path: 'updatependuduk',
+    loadChildren: () => import('./updatependuduk/updatependuduk.module').then( m => m.UpdatependudukPageModule)
+  },
+  {
+    path: 'updateinfo',
+    loadChildren: () => import('./updateinfo/updateinfo.module').then( m => m.UpdateinfoPageModule)
+  },
+  {
+    path: 'addpenduduk',
+    loadChildren: () => import('./addpenduduk/addpenduduk.module').then( m => m.AddpendudukPageModule)
+  },
+  {
+    path: 'updateiuran',
+    loadChildren: () => import('./updateiuran/updateiuran.module').then( m => m.UpdateiuranPageModule)
+  },
+  {
+    path: 'addinfo',
+    loadChildren: () => import('./addinfo/addinfo.module').then( m => m.AddinfoPageModule)
+  },
+  {
+    path: 'blok',
+    loadChildren: () => import('./blok/blok.module').then( m => m.BlokPageModule)
   }
 ];
 
