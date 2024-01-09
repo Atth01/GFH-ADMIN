@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
+import { Storage } from '@ionic/storage';
 import { ApiserviceService } from '../apiservice.service';
+import { ViewDidEnter, ToastController, NavController, AlertController } from '@ionic/angular';
 
 Chart.register(...registerables);
 
@@ -13,7 +15,10 @@ export class ReportPage implements OnInit {
   chartData: any = {};
   chartData1: any = {};
 
-  constructor(private _apiService: ApiserviceService) {}
+  constructor(
+    private storage: Storage,
+    private navCtrl: NavController,
+    private _apiService: ApiserviceService) {}
 
   ngOnInit() {
     this.fetchDataAndRenderChart();
@@ -104,5 +109,10 @@ export class ReportPage implements OnInit {
     } else {
       console.warn('No data available for piechart2.');
     }
+  }
+  goToInfoPage() {
+    this.storage.remove('isLoggedIn');
+    localStorage.removeItem('isLoggedIn');
+    this.navCtrl.navigateRoot(['/login']);
   }
 }

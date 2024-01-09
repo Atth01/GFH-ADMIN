@@ -1,6 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="custom-header">
     <ion-title class="ion-text-light custom-title">Pengeluaran</ion-title>
+    <ion-buttons slot="end" color="light" class="custom-menu-button">
+      <ion-button (click)="goToInfoPage()" style="color:aliceblue">
+        <ion-icon style="color:white" slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="start" color="light" class="custom-menu-button">
       <ion-menu-button style="color:aliceblue"></ion-menu-button>
     </ion-buttons>    
@@ -16,7 +21,7 @@
       search-icon="search-circle"
       show-clear-button="never"
       value="Never Show"
-      placeholder="Search"
+      placeholder="Search nama pengeluaran"
       [(ngModel)]="searchNIK"
       (ionInput)="searchByNIK()"
     ></ion-searchbar>

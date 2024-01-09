@@ -140,6 +140,11 @@ export class PesanPage implements ViewDidEnter {
       this.presentToast('Error: ' + err.err, 'danger', 'alert-circle-outline');
     }
   }
+  goToInfoPage() {
+    this.storage.remove('isLoggedIn');
+    localStorage.removeItem('isLoggedIn');
+    this.navCtrl.navigateRoot(['/login']);
+  }
   
   
   

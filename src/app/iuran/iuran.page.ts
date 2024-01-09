@@ -141,8 +141,9 @@ export class IuranPage implements OnInit {
     }
   }
   goToInfoPage() {
-    // Ganti 'info' dengan path yang sesuai untuk halaman info Anda
-    this.navCtrl.navigateForward('/iuran');
+    this.storage.remove('isLoggedIn');
+    localStorage.removeItem('isLoggedIn');
+    this.navCtrl.navigateRoot(['/login']);
   }
   exportToExcel() {
     if (this.infoData && this.infoData.length > 0) {

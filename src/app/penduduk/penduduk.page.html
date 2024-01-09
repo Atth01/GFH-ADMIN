@@ -1,11 +1,17 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="custom-header">
     <ion-title class="ion-text-light custom-title">Penduduk</ion-title>
+    <ion-buttons slot="end" color="light" class="custom-menu-button">
+      <ion-button (click)="goToInfoPage()" style="color:aliceblue">
+        <ion-icon style="color:white" slot="icon-only" name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
     <ion-buttons slot="start" color="light" class="custom-menu-button">
       <ion-menu-button style="color: antiquewhite"></ion-menu-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content style="--background: url('../../assets/bg1.jpg') center center / cover no-repeat;" [fullscreen]="true">
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
@@ -16,7 +22,7 @@
       search-icon="search-circle"
       show-clear-button="never"
       value="Never Show"
-      placeholder="Search"
+      placeholder="Search nama penduduk"
       [(ngModel)]="searchNIK"
       (ionInput)="searchByNIK()"
     ></ion-searchbar>

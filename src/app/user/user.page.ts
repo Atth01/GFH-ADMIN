@@ -152,4 +152,9 @@ export class UserPage implements ViewDidEnter {
       this.presentToast('No data to export', 'warning', 'alert-circle-outline');
     }
   }
+goToInfoPage() {
+  this.storage.remove('isLoggedIn');
+  localStorage.removeItem('isLoggedIn');
+  this.navCtrl.navigateRoot(['/login']);
+}
 }

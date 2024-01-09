@@ -148,4 +148,9 @@ export class BlokPage implements ViewDidEnter {
   goToOtherPage() {
     this.navCtrl.navigateForward('/other-page');
   }
+  goToInfoPage() {
+    this.storage.remove('isLoggedIn');
+    localStorage.removeItem('isLoggedIn');
+    this.navCtrl.navigateRoot(['/login']);
+  }
 }

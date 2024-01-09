@@ -35,7 +35,6 @@ export class AdduserPage implements OnInit {
     try {
       const formData = new FormData();
       formData.append('kd_pnddk', this.nik);
-      formData.append('nik', this.nik);
       formData.append('email', this.username);
       formData.append('username', this.username);
       formData.append('password', this.password);

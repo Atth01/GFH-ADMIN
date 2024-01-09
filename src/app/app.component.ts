@@ -25,8 +25,7 @@ export class AppComponent {
     { title: 'User', url: '/user', icon: 'person' },
     { title: 'Pengeluaran', url: '/pengeluaran', icon: 'wallet' },
     { title: 'Uangkeluar', url: '/uangkeluar', icon: 'cash' },
-    { title: 'Diagram', url: '/report', icon: 'analytics'},
-    { title: 'Logout', url: '/login', icon: 'log-out'}
+    { title: 'Diagram', url: '/report', icon: 'analytics'}
     // { title: 'Spam', url: '/folder/spam', icon: 'warning' },
   ];
   constructor(
