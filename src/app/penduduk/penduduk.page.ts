@@ -45,7 +45,7 @@ export class PendudukPage implements ViewDidEnter {
   searchByNIK(): void {
     if (this.searchNIK.trim() !== '') {
       this.Data = this.Data.filter((penduduk: any) =>
-        penduduk.nik.includes(this.searchNIK)
+        penduduk.nama.includes(this.searchNIK)
       );
 
       if (this.Data.length > 0) {

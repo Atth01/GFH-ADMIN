@@ -46,7 +46,7 @@ export class BlokPage implements ViewDidEnter {
   searchByNIK(): void {
     if (this.searchNIK.trim() !== '') {
       this.blokData = this.blokData.filter((blokData: any) =>
-        blokData.no_blok.includes(this.searchNIK)
+        blokData.nama_blok.includes(this.searchNIK)
       );
 
       if (this.blokData.length > 0) {

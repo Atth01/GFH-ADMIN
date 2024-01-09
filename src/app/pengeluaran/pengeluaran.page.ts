@@ -45,7 +45,7 @@ export class PengeluaranPage implements ViewDidEnter {
   searchByNIK(): void {
     if (this.searchNIK.trim() !== '') {
       this.pengeluaranData = this.pengeluaranData.filter((info: any) =>
-        info.kd_pengeluaran.includes(this.searchNIK)
+        info.nama_pengeluaran.includes(this.searchNIK)
       );
 
       if (this.pengeluaranData.length > 0) {

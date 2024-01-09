@@ -43,7 +43,7 @@ export class PesanPage implements ViewDidEnter {
   searchByNIK(): void {
     if (this.searchNIK.trim() !== '') {
       this.infoPesan = this.infoPesan.filter((infoPesan: any) =>
-        infoPesan.kd_pesan.includes(this.searchNIK)
+        infoPesan.nama_pesan.includes(this.searchNIK)
       );
 
       if (this.infoPesan.length > 0) {

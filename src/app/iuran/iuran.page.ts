@@ -54,7 +54,7 @@ export class IuranPage implements OnInit {
   searchByNIK(): void {
     if (this.searchNIK.trim() !== '') {
       this.infoData = this.infoData.filter((info: any) =>
-        info.kd_penduduk.includes(this.searchNIK)
+        info.jenis_pembayaran.includes(this.searchNIK)
       );
 
       if (this.infoData.length > 0) {

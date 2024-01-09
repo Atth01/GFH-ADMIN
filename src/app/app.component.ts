@@ -2,6 +2,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { IonMenu } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage-angular';
+import { Platform } from '@ionic/angular';
 
 @Component({
   selector: 'app-root',
@@ -23,10 +25,31 @@ export class AppComponent {
     { title: 'User', url: '/user', icon: 'person' },
     { title: 'Pengeluaran', url: '/pengeluaran', icon: 'wallet' },
     { title: 'Uangkeluar', url: '/uangkeluar', icon: 'cash' },
-    { title: 'Diagram', url: '/report', icon: 'analytics'}
+    { title: 'Diagram', url: '/report', icon: 'analytics'},
+    { title: 'Logout', url: '/login', icon: 'log-out'}
     // { title: 'Spam', url: '/folder/spam', icon: 'warning' },
   ];
-  constructor(private router: Router) {}
+  constructor(
+    private storage: Storage,
+    private platform: Platform,
+    private router: Router
+    ) {
+      this.initializeApp();
+    }
+    async initializeApp() {
+      await this.storage.create();
+      this.platform.ready().then(() => {
+        // this.statusBar.styleDefault(); // Uncomment if you have StatusBar
+      });
+  
+      this.storage.get('isLoggedIn').then((val) => {
+        if (val === null || val === undefined || val === '') {
+          this.router.navigateByUrl('/login'); // Navigasi ke halaman splash
+        } else {
+          this.router.navigateByUrl('/penduduk'); // Navigasi ke halaman tab1
+        }
+      });
+    }
 
   // Fungsi untuk memicu tampilan dan penyembunyian side menu
   toggleMenu() {

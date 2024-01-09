@@ -33,7 +33,7 @@ export class UangkeluarPage implements ViewDidEnter {
   searchByNIK(): void {
     if (this.searchNIK.trim() !== '') {
       this.UangData = this.UangData.filter((info: any) =>
-        info.kd_keluar.includes(this.searchNIK)
+        info.keterangan.includes(this.searchNIK)
       );
 
       if (this.UangData.length > 0) {
