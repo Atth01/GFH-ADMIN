@@ -29,6 +29,7 @@ ion-header {
 	font-size: 30px;
 	font-weight: bold;
 	color: #fff;
+	text-align: center;
   }
   ion-card-title, ion-card-content {
 	color: white;
@@ -179,5 +180,39 @@ h3::before {
   /* styles.css atau styles.scss */
 .custom-menu-button ion-button {
     --color: white;
+  }
+  .tombol{
+	margin-top:10px;
+	margin-bottom:10px;
+	--background: linear-gradient(to bottom, #00e51f, #005d2a);
+	color:#f2f2f2;
+	padding: 10px;
+	.btn{
+	  background: linear-gradient(to bottom, #00e51f, #005d2a);
+	  color:#f2f2f2;
+	}
+}
+.search-bar-container {
+	display: flex;
+	align-items: center;
+  }
+  
+  ion-searchbar {
+	flex: 1; /* Menggunakan ruang yang tersisa */
+  }
+  
+  .search {
+	margin-left: 2px; /* Atur margin sesuai kebutuhan Anda */
+	padding: 10px 15px;
+	background-color: #006910; /* Warna latar belakang */
+	color: #ffffff; /* Warna teks */
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+  }
+  
+  .search:hover {
+	background-color: #0056b3; /* Warna latar belakang saat hover */
   }
   

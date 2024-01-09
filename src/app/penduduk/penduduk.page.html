@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="custom-header">
-    <ion-title class="ion-text-light custom-title text-center">Penduduk</ion-title>
+    <ion-title class="ion-text-light custom-title">Penduduk</ion-title>
     <ion-buttons slot="start" color="light" class="custom-menu-button">
       <ion-menu-button style="color: antiquewhite"></ion-menu-button>
     </ion-buttons>
@@ -8,10 +8,28 @@
 </ion-header>
 
 <ion-content style="--background: url('../../assets/bg1.jpg') center center / cover no-repeat;" [fullscreen]="true">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="search-bar-container">
+    <ion-searchbar
+      search-icon="search-circle"
+      show-clear-button="never"
+      value="Never Show"
+      placeholder="Search"
+      [(ngModel)]="searchNIK"
+      (ionInput)="searchByNIK()"
+    ></ion-searchbar>
+    <!-- <button class="search" (click)="searchByNIK()">Cari</button> -->
+  </div>  
   <div class="tombol">
-    <button size="light" class=" btn w-100 h-500 rounded" shape="round">
+    <button size="light" class=" btn w-100 h-500 rounded" shape="round" [routerLink]="['/addpenduduk']">
       <ion-icon name="add-circle-outline" class="w-200 h-200"></ion-icon></button>
     </div>
+    <!-- <div class="custom-button" (click)="exportToExcel()">
+      <ion-icon name="document-outline" class="custom-icon"></ion-icon>
+      <span class="button-text"></span>
+    </div>     -->
 
   <!-- Konten Data Keluarga -->
   <ion-card class="table-card" *ngFor="let data of Data">
@@ -31,10 +49,14 @@
         </ion-item>
       </ion-list>
 
-      <ion-button color="success" (click)="update(data.nik)">
+      <ion-button color="success" (click)="update(data.kd_penduduk)">
         <ion-icon slot="start" name="create-outline"></ion-icon>
         Update
       </ion-button>
+      <ion-button color="danger" (click)="confirmDelete(data.kd_penduduk)">
+        <ion-icon slot="end" name="trash-outline"></ion-icon>
+        Delete
+      </ion-button>      
     </ion-card-content>
   </ion-card>
 </ion-content>

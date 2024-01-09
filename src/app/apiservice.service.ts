@@ -7,30 +7,69 @@ import axios, { AxiosResponse, AxiosError } from 'axios'; // Import AxiosRespons
 export class ApiserviceService {
   public uriApi: string = 'https://greenland-foresthill.id/rest-api/index.php/';
 
-  constructor() {}
-  async getPenduduk() {
+  constructor() { }
+  // Penduduk
+  async getPenduduk(nik: string) {
     try {
-        let url = this.uriApi + 'penduduk';
-
+      var url = '';
+      if (
+        nik == undefined || nik == ''
+      ) {
+        url = this.uriApi + 'penduduk';
         const res: AxiosResponse = await axios.get(url);
-        
+        console.log(res)
         let data = res.data.result;
         return {
-            msg: 'ok',
-            data: data,
+          msg: 'ok',
+          data: data,
         };
-    } catch (err: any) {
+      } else {
+        url = this.uriApi + 'penduduk?kd_pnddk=' + nik;
+        const res: AxiosResponse = await axios.get(url);
+        let data = res.data.result;
         return {
-            msg: 'err',
-            err: err,
+          msg: 'ok',
+          data: data[0],
         };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
     }
-}
-  async createPenduduk(data: any) {
+  }
+  async create_Penduduk(data: any) {
     try {
       let url = this.uriApi + 'penduduk';
 
       const res = await axios.post(url, data);
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else if(res.data.status == 'Err') {
+        console.log()
+        return {
+          msg: 'notOk',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      console.log( );
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async update_Penduduk(data: any) {
+    try {
+      let url = this.uriApi + 'Update_penduduk'; // Ensure this matches your server-side endpoint
+      const res: AxiosResponse = await axios.post(url, data);
       if (res.data.status == 'Ok') {
         return {
           msg: 'ok',
@@ -41,62 +80,69 @@ export class ApiserviceService {
         };
       }
     } catch (err: any) {
-      console.log(err);
       return {
         msg: 'err',
         err: err,
       };
     }
   }
-  async updatePenduduk(data: any) {
+  async delete_Penduduk(kd_penduduk: string) {
     try {
-        let url = this.uriApi + 'index_post'; // Ensure this matches your server-side endpoint
-        const res: AxiosResponse = await axios.post(url, {
-            kd: data.kd,
-            status_huni: data.status_huni,
-        });
-        if (res.data.status == 'Ok') {
-            return {
-                msg: 'ok',
-            };
-        } else {
-            return {
-                msg: 'notOk',
-            };
-        }
-    } catch (err: any) {
+      let url = this.uriApi + 'delete_penduduk';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_penduduk: kd_penduduk,
+      });
+
+      if (res.data.status === 'Ok') {
         return {
-            msg: 'err',
-            err: err,
-        };
-    }
-}
-
-
-
-  async getInfo() {
-    try {
-      let url = this.uriApi + 'info';
-      const res: AxiosResponse = await axios.get(url); // Tentukan tipe AxiosResponse
-      let data = res.data.result;
-      return {
-        msg: 'ok',
-        data: data,
-      };
-    } catch (err: any) {
-      console.log(err);
-      if (axios.isAxiosError(err) && err.response && err.response.data && err.response.data.status == 'Err') {
-        return {
-          msg: 'notFound',
+          msg: 'ok',
         };
       } else {
         return {
-          msg: 'err',
-          err: err,
+          msg: 'notOk',
         };
       }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
     }
   }
+
+
+  // Info
+  async getInfo() {
+    try {
+        let url = this.uriApi + 'info';
+
+        // Tambahkan kd ke URL jika diberikan
+
+        const res: AxiosResponse = await axios.get(url);
+        let data = res.data.result;
+        console.log(data);
+
+        return {
+            msg: 'ok',
+            data: data,
+        };
+    } catch (err: any) {
+        console.log(err);
+
+        if (axios.isAxiosError(err) && err.response && err.response.data && err.response.data.status == 'Err') {
+            return {
+                msg: 'notFound',
+            };
+        } else {
+            return {
+                msg: 'err',
+                err: err,
+            };
+        }
+    }
+}
+
+  
   async createInfo(data: any) {
     try {
       let url = this.uriApi + 'info';
@@ -110,7 +156,7 @@ export class ApiserviceService {
       } else {
         return {
           msg: 'notOk',
-        }; 
+        };
       }
     } catch (err: any) {
       console.log(err);
@@ -122,59 +168,60 @@ export class ApiserviceService {
   }
   async updateInfo(data: any, kd: string) {
     try {
-        let url = this.uriApi + 'update_info';
-        const res: AxiosResponse = await axios.post(url, {
-            kd: kd,
-            judul_info: data.judul_info,
-            informasi: data.informasi,
-            tgl_info: data.tgl_info,
-        });
+      let url = this.uriApi + 'update_info';
+      const res: AxiosResponse = await axios.post(url, {
+        kd: kd,
+        judul_info: data.judul_info,
+        informasi: data.informasi,
+        tgl_info: data.tgl_info,
+      });
 
-        if (res.data.status === 'Ok') {
-            return {
-                msg: 'ok',
-            };
-        } else {
-            return {
-                msg: 'notOk',
-            };
-        }
-    } catch (err: any) {
+      if (res.data.status === 'Ok') {
         return {
-            msg: 'err',
-            err: err,
+          msg: 'ok',
         };
-    }
-}
-  async deleteInfo(kd: string) {
-    try {
-        let url = this.uriApi + 'delete_info';
-        const res: AxiosResponse = await axios.post(url, {
-            kd: kd,
-        });
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
   
-        if (res.data.status === 'Ok') {
-            return {
-                msg: 'ok',
-            };
-        } else {
-            return {
-                msg: 'notOk',
-            };
-        }
-    } catch (err: any) {
+  async delete_Info(kd_info: string) {
+    try {
+      let url = this.uriApi + 'delete_info';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_info: kd_info,
+      });
+
+      if (res.data.status === 'Ok') {
         return {
-            msg: 'err',
-            err: err,
+          msg: 'ok',
         };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
     }
   }
 
 
-
-async getBlok() {
-  try {
-      let url = this.uriApi + 'blok_kavling';
+  // Blok
+  async getBlok() {
+    try {
+      let url = this.uriApi + 'blok';
       // if (kd) {
       //     url += `?kd=${kd}`;
       // }
@@ -183,67 +230,88 @@ async getBlok() {
 
       let data = res.data.result;
       return {
-          msg: 'ok',
-          data: data,
+        msg: 'ok',
+        data: data,
       };
-  } catch (err: any) {
+    } catch (err: any) {
       return {
-          msg: 'err',
-          err: err,
+        msg: 'err',
+        err: err,
       };
+    }
   }
-}
-async updateBlok(data: any, kd: string) {
-  try {
-      let url = this.uriApi + 'update_blok';
-      const res: AxiosResponse = await axios.post(url, {
-          kd: kd,
-          nama_blok: data.nama_blok,
-          no_blok: data.no_blok,
-      });
+  async createBlok(data: any) {
+    try {
+      let url = this.uriApi + 'blok';
+
+      const res = await axios.post(url, data);
+
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      console.log(err);
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async updateBlok(data: any, kd_blok: string) {
+    try {
+      let url = this.uriApi + 'Update_blok';
+      const res: AxiosResponse = await axios.post(url, data);
 
       if (res.data.status === 'Ok') {
-          return {
-              msg: 'ok',
-          };
+        return {
+          msg: 'ok',
+        };
       } else {
-          return {
-              msg: 'notOk',
-          };
+        return {
+          msg: 'notOk',
+        };
       }
-  } catch (err: any) {
+    } catch (err: any) {
       return {
-          msg: 'err',
-          err: err,
+        msg: 'err',
+        err: err,
       };
+    }
   }
-}
 
-async deleteBlok(kd: string) {
-  try {
+  async delete_Blok(kd_blok: string) {
+    try {
       let url = this.uriApi + 'delete_blok';
       const res: AxiosResponse = await axios.post(url, {
-          kd: kd,
+        kd_blok: kd_blok,
       });
 
       if (res.data.status === 'Ok') {
-          return {
-              msg: 'ok',
-          };
+        return {
+          msg: 'ok',
+        };
       } else {
-          return {
-              msg: 'notOk',
-          };
+        return {
+          msg: 'notOk',
+        };
       }
-  } catch (err: any) {
+    } catch (err: any) {
       return {
-          msg: 'err',
-          err: err,
+        msg: 'err',
+        err: err,
       };
+    }
   }
-}
-async getIuran() {
-  try {
+
+  // Iuran
+  async getIuran() {
+    try {
       let url = this.uriApi + 'iuran';
 
       // // Build query parameters based on provided values
@@ -262,58 +330,613 @@ async getIuran() {
 
       let data = res.data.result;
       return {
-          msg: 'ok',
-          data: data,
+        msg: 'ok',
+        data: data,
       };
-  } catch (err: any) {
+    } catch (err: any) {
       return {
-          msg: 'err',
-          err: err,
+        msg: 'err',
+        err: err,
       };
+    }
   }
-}
-async updateIuran(data: any, kd: string) {
-  try {
-      let url = this.uriApi + 'update_iuran';
+  async createIuran(data: any) {
+    try {
+      let url = this.uriApi + 'Iuran';
+
+      const res = await axios.post(url, data);
+
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      console.log(err);
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async updateIuran(data: any, kd_iuran: string) {
+    try {
+      let url = this.uriApi + 'Update_iuran';
       const res: AxiosResponse = await axios.post(url, {
-          kd: kd,
-          status: data.status,
+        kd_iuran: kd_iuran,
+        status: data.status,
+        kd_blok: data.kd_blok,
+        kd_penduduk: data.kd_penduduk,
+        jenis_pembayaran: data.jenis_pembayaran,
+        tgl_pembayaran: data.tgl_pembayaran,
+        kas_bulan: data.kas_bulan,
+        kas_tahun: data.kas_tahun,
+        iuran_foto: data.iuran_foto,
+        keterangan: data.keterangan
       });
 
       if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async delete_Iuran(kd_iuran: string) {
+    try {
+      let url = this.uriApi + 'delete_iuran';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_iuran: kd_iuran,
+      });
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+
+  // Pesan
+  async getPesan(nik?: string) {
+    try {
+      let url = this.uriApi + 'pesan';
+      
+      // Jika nik diberikan, tambahkan ke URL sebagai parameter query string
+      if (nik) {
+        url += `?nik=${nik}`;
+      }
+  
+      const res: AxiosResponse = await axios.get(url);
+  
+      let data = res.data.result;
+      return {
+        msg: 'ok',
+        data: data,
+      };
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  
+  
+
+  async createPesan(data: any) {
+    try {
+      let url = this.uriApi + 'Pesan';
+
+      const res = await axios.post(url, data);
+
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      console.log(err);
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async updatePesan(data: any, kd_pesan: string) {
+    try {
+      let url = this.uriApi + 'Update_pesan';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_pesan: kd_pesan,
+        kd_penduduk: data.kd_penduduk,
+        pesan: data.pesan,
+        tgl_pesan: data.tgl_pesan
+      });
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async delete_Pesan(kd_pesan: string) {
+    try {
+      let url = this.uriApi + 'delete_pesan';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_pesan: kd_pesan,
+      });
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+
+  // Surat
+    // Info
+    async getSurat() {
+      try {
+          let url = this.uriApi + 'Surat_keluar';
+  
+          // Tambahkan kd ke URL jika diberikan
+  
+          const res: AxiosResponse = await axios.get(url);
+          let data = res.data.result;
+          console.log(data);
+  
           return {
               msg: 'ok',
+              data: data,
           };
-      } else {
-          return {
-              msg: 'notOk',
-          };
+      } catch (err: any) {
+          console.log(err);
+  
+          if (axios.isAxiosError(err) && err.response && err.response.data && err.response.data.status == 'Err') {
+              return {
+                  msg: 'notFound',
+              };
+          } else {
+              return {
+                  msg: 'err',
+                  err: err,
+              };
+          }
       }
-  } catch (err: any) {
-      return {
-          msg: 'err',
-          err: err,
-      };
   }
-}
+  async createSurat(data: any) {
+    try {
+      let url = this.uriApi + 'Surat_keluar';
 
-async getPesan() {
-  try {
-      let url = this.uriApi + 'get_pesan';
+      const res = await axios.post(url, data);
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      console.log(err);
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async Update_surat(data: any, kd_surat_keluar: string) {
+    try {
+      let url = this.uriApi + 'Update_surat'; // Ensure this matches your server-side endpoint
+      const res: AxiosResponse = await axios.post(url,
+       data
+      );
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async Delete_surat(kd_surat_keluar: string) {
+    try {
+      let url = this.uriApi + 'Delete_surat';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_surat_keluar: kd_surat_keluar,
+      });
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+
+  // User
+  async getUser() {
+    try {
+      let url = this.uriApi + 'User';
+
+      // Tambahkan kd ke URL jika diberikan
 
       const res: AxiosResponse = await axios.get(url);
-
       let data = res.data.result;
+      console.log(data);
+
       return {
           msg: 'ok',
           data: data,
       };
   } catch (err: any) {
-      return {
-          msg: 'err',
-          err: err,
-      };
+      console.log(err);
+
+      if (axios.isAxiosError(err) && err.response && err.response.data && err.response.data.status == 'Err') {
+          return {
+              msg: 'notFound',
+          };
+      } else {
+          return {
+              msg: 'err',
+              err: err,
+          };
+      }
   }
+    // var url = ''
+    // try {
+    //   if(
+    //     kd_pnddk == ''){
+    //     url = this.uriApi + 'user';
+    //     }else{
+    //       url = this.uriApi + 'user?kd_pnddk=' + kd_pnddk;
+    //     }
+
+    //   const res: AxiosResponse = await axios.get(url);
+
+    //   let data = res.data.result;
+    //   return {
+    //     msg: 'ok',
+    //     data: data,
+    //   };
+    // } catch (err: any) {
+    //   return {
+    //     msg: 'err',
+    //     err: err,
+    //   };
+    // }
+  }
+  async createUser(data: any) {
+    try {
+      let url = this.uriApi + 'user';
+
+      const res = await axios.post(url, data);
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      console.log(err);
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async updateUser(data: any) {
+    try {
+      let url = this.uriApi + 'update_user'; // Ensure this matches your server-side endpoint
+      const res: AxiosResponse = await axios.post(url, data);
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async delete_User(kd_user: string) {
+    try {
+      let url = this.uriApi + 'Delete_user';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_user: kd_user,
+      });
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async getPengeluaran() {
+    try {
+        let url = this.uriApi + 'Pengeluaran';
+
+        // Tambahkan kd ke URL jika diberikan
+
+        const res: AxiosResponse = await axios.get(url);
+        let data = res.data.result;
+        console.log(data);
+
+        return {
+            msg: 'ok',
+            data: data,
+        };
+    } catch (err: any) {
+        console.log(err);
+
+        if (axios.isAxiosError(err) && err.response && err.response.data && err.response.data.status == 'Err') {
+            return {
+                msg: 'notFound',
+            };
+        } else {
+            return {
+                msg: 'err',
+                err: err,
+            };
+        }
+    }
 }
+
+  
+  async createPengeluaran(data: any) {
+    try {
+      let url = this.uriApi + 'Pengeluaran';
+
+      const res = await axios.post(url, data);
+
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      console.log(err);
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async update_Pengeluaran(data: any, kd_pengeluaran: string) {
+    try {
+      let url = this.uriApi + 'Update_pengeluaran';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_pengeluaran: kd_pengeluaran,
+        nama_pengeluaran: data.nama_pengeluaran
+      });
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  
+  async delete_Pengeluaran(kd_pengeluaran: string) {
+    try {
+      let url = this.uriApi + 'Delete_pengeluaran';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_pengeluaran: kd_pengeluaran,
+      });
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+
+  async getUang() {
+    try {
+        let url = this.uriApi + 'Uang_keluar';
+
+        // Tambahkan kd ke URL jika diberikan
+
+        const res: AxiosResponse = await axios.get(url);
+        let data = res.data.result;
+        console.log(data);
+
+        return {
+            msg: 'ok',
+            data: data,
+        };
+    } catch (err: any) {
+        console.log(err);
+
+        if (axios.isAxiosError(err) && err.response && err.response.data && err.response.data.status == 'Err') {
+            return {
+                msg: 'notFound',
+            };
+        } else {
+            return {
+                msg: 'err',
+                err: err,
+            };
+        }
+    }
+}
+
+  
+  async createUang(data: any) {
+    try {
+      let url = this.uriApi + 'Uang_keluar';
+
+      const res = await axios.post(url, data);
+
+      if (res.data.status == 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      console.log(err);
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  async update_Uang(data: any, kd_keluar: string) {
+    try {
+      let url = this.uriApi + 'Update_uang';
+      const res: AxiosResponse = await axios.post(url, data
+      );
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
+  
+  async Delete_uang(kd_keluar: string) {
+    try {
+      let url = this.uriApi + 'Delete_uang';
+      const res: AxiosResponse = await axios.post(url, {
+        kd_keluar: kd_keluar,
+      });
+
+      if (res.data.status === 'Ok') {
+        return {
+          msg: 'ok',
+        };
+      } else {
+        return {
+          msg: 'notOk',
+        };
+      }
+    } catch (err: any) {
+      return {
+        msg: 'err',
+        err: err,
+      };
+    }
+  }
 }
 

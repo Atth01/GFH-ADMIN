@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="custom-header">
-    <ion-title class="ion-text-light custom-title text-center">Add_Info</ion-title>
+    <ion-title class="ion-text-light custom-title">Add Info</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="goToInfoPage()" style="color:aliceblue">
         <ion-icon style="color:white" slot="icon-only" name="arrow-back"></ion-icon>
@@ -13,23 +13,27 @@
 </ion-header>
 
 <ion-content style="--background: url('../../assets/bg1.jpg') center center / cover no-repeat;" [fullscreen]="true">
-  <div class="container d-block justify-content-center py-3">
-    <ion-item>
-      <ion-label position="stacked">Judul_info</ion-label>
-      <ion-input [(ngModel)]="judul_info" required></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Info</ion-label>
-      <ion-input [(ngModel)]="informasi" required></ion-input>
-    </ion-item>  
-    <ion-item>
-      <ion-label position="stacked">Tanggal_Info</ion-label>
-      <ion-input type="date" [(ngModel)]="tgl_info" required></ion-input>
-    </ion-item>   
+  <div class="form-container">
+    <div class="form-group">
+      <label class="form-label text-light">Judul_info</label>
+      <input class="form-input" type="text" [(ngModel)]="judul_info" required>
+    </div>
+  
+    <div class="form-group">
+      <label class="form-label text-light">Info</label>
+      <input class="form-input" type="textbox" [(ngModel)]="informasi" required>
+    </div>
+  
+    <div class="form-group">
+      <label class="form-label text-light">Tanggal_Info</label>
+      <input class="form-input" type="date" [(ngModel)]="tgl_info" required>
+    </div>
+  
     <div class="form-group mt-3">
-      <button (click)="addNewInfo()" class="form-control btn" style="background: linear-gradient(to bottom, #00e51f, #005d2a); color:white;">
+      <button (click)="addNewInfo()" class="form-button">
         Tambah Data
       </button>
     </div>
   </div>
+  
 </ion-content>

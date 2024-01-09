@@ -35,7 +35,7 @@ export class AddinfoPage implements OnInit {
         // Data added successfully, you can navigate to another page or show a success message
         this.presentToast('Info added successfully', 'success');
         // For example, navigate back to the previous page
-        this.navCtrl.back();
+        this.navCtrl.navigateForward('/info');
       } else if (response.msg === 'notOk') {
         // Handle the case when data addition fails
         this.presentToast('Failed to add info', 'danger');

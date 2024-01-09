@@ -29,6 +29,7 @@ ion-header {
 	font-size: 30px;
 	font-weight: bold;
 	color: #fff;
+	text-align: center;
   }
   ion-card-title, ion-card-content {
 	color: white;
@@ -135,9 +136,10 @@ h3::before {
 	color: white; /* Warna teks putih atau sesuai keinginan Anda */
 	margin-bottom: 10px; /* Atur jarak antara kartu notifikasi */
   }
-  .white-text {
-	color: white;
+  .judul {
+	color: rgb(0, 0, 0);
 	font-size: 30px;
+	align-items: center;
   }
   ion-fab-button::part(native) {
     background: linear-gradient(to bottom, #00e51f, #005d2a);
@@ -180,4 +182,43 @@ h3::before {
 .custom-menu-button ion-button {
     --color: white;
   }
+  .judul{
+	text-align: center;
+  }
+  .tulisan{
+	font-size: 20px;
+  }
+  .tombol{
+	margin-top:10px;
+	margin-bottom:10px;
+	--background: linear-gradient(to bottom, #00e51f, #005d2a);
+	color:#f2f2f2;
+	padding: 10px;
+	.btn{
+	  background: linear-gradient(to bottom, #00e51f, #005d2a);
+	  color:#f2f2f2;
+	}
+  }
+  .search-bar-container {
+	display: flex;
+	align-items: center;
+  }
   
+  ion-searchbar {
+	flex: 1; /* Menggunakan ruang yang tersisa */
+  }
+  
+  .search {
+	margin-left: 2px; /* Atur margin sesuai kebutuhan Anda */
+	padding: 10px 15px;
+	background-color: #006910; /* Warna latar belakang */
+	color: #ffffff; /* Warna teks */
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+  }
+  
+  .search:hover {
+	background-color: #0056b3; /* Warna latar belakang saat hover */
+  }
