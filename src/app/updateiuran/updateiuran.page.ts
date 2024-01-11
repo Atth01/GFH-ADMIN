@@ -9,6 +9,7 @@ import {
 } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { ApiserviceService } from '../apiservice.service';
+import axios from 'axios';
 
 @Component({
   selector: 'app-updateiuran',
@@ -26,6 +27,7 @@ export class UpdateiuranPage implements OnInit {
   public status: any;
   public keterangan: any;
   public kd_penduduk: any;
+  public bukti_iuran: any;
   // public iuran_foto: any;
 
   constructor(
@@ -64,10 +66,20 @@ export class UpdateiuranPage implements OnInit {
   async getIuran() {
     try {
       await this.storage.create();
-      this._apiService.getIuran().then((res: any) => {
+      this._apiService.getIuran().then(async (res: any) => {
+        if (res.msg == 'ok') {
+          this.Data = Array(res.data);
         console.log(res.data);
         if (res.msg == 'ok') {
           this.Data = res.data.filter((item: any) => item.kd_iuran === this.kd_iuran);
+          const bukti_iuran = await axios.get(
+            this._apiService.uriApi + 'iuranimage?file=' + this.Data[0].bukti_iuran
+          );
+          if (bukti_iuran.data.status !== 'Not Found') {
+            this.Data[0].bukti_iuran = this._apiService.uriApi + 'iuranimage?file=' + this.Data[0].bukti_iuran;
+          } else {
+            this.Data[0].bukti_iuran = this._apiService.uriApi + 'iuranimage?file=nofoto.png';
+          }
           if (this.Data.length > 0) {
             const dataItem = this.Data[0];
             this.kd_iuran = dataItem.kd_iuran;
@@ -90,6 +102,7 @@ export class UpdateiuranPage implements OnInit {
             'alert-circle-outline'
           );
         }
+      }
       });
     } catch (error) {
       console.error('Error in getIuran', error);
@@ -100,6 +113,12 @@ export class UpdateiuranPage implements OnInit {
       );
     }
   }
+
+  async getFile(event: any) {
+    const file = event.target.files[0];
+    this.bukti_iuran = file;
+  }
+
   async Update() {
     try {
       if (
@@ -135,7 +154,7 @@ export class UpdateiuranPage implements OnInit {
           tgl_pembayaran: this.tgl_pembayaran,
           kas_bulan: this.kas_bulan,
           kas_tahun: this.kas_tahun,
-          status: this.status
+          status: this.status,
           // iuran_foto: this.iuran_foto
         };
   

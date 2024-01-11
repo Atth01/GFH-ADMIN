@@ -354,9 +354,10 @@ export class ApiserviceService {
       //     url += '?' + queryParams.join('&');
       // }
 
-      const res: AxiosResponse = await axios.get(url);
 
+      const res = await axios.get(url);
       let data = res.data.result;
+
       return {
         msg: 'ok',
         data: data,

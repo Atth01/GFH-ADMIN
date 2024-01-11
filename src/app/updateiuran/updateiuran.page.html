@@ -14,10 +14,25 @@
 
 <ion-content style="--background: url('../../assets/bg1.jpg') center center / cover no-repeat;" [fullscreen]="true">
   <div class="container d-block justify-content-center">
-    <!-- <ion-item>
-      <ion-label position="stacked">Foto</ion-label>
-      <ion-input [(ngModel)]="iuran_foto" type="text" readonly></ion-input>
-    </ion-item> -->
+    <div
+          *ngFor="let data of Data"
+          class="d-flex justify-content-center mb-2"
+        >
+          <img
+            src="{{data.bukti_iuran}}"
+            alt="Foto Profile"
+            class="rounded mx-2"
+            width="50%"
+          />
+        </div>
+    <ion-item>
+      <ion-label position="stacked">Ubah Foto</ion-label>
+     <ion-input
+              (change)="getFile($event)"
+              type="file"
+              class="p-0"
+            ></ion-input>
+    </ion-item>
     <ion-item>
       <ion-label position="stacked">Kode Iuran</ion-label>
       <ion-input [(ngModel)]="kd_iuran" type="text" readonly></ion-input>
