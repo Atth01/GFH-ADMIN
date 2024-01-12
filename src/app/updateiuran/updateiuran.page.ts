@@ -10,6 +10,8 @@ import {
 import { Storage } from '@ionic/storage';
 import { ApiserviceService } from '../apiservice.service';
 import axios from 'axios';
+import { HttpClient } from '@angular/common/http';
+import { ImageDownloadService } from '../services/image-download.service';
 
 @Component({
   selector: 'app-updateiuran',
@@ -28,6 +30,9 @@ export class UpdateiuranPage implements OnInit {
   public keterangan: any;
   public kd_penduduk: any;
   public bukti_iuran: any;
+  public file: any;
+  // private fileTransfer: FileTransferObject;
+
   // public iuran_foto: any;
 
   constructor(
@@ -37,8 +42,12 @@ export class UpdateiuranPage implements OnInit {
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
     private storage: Storage,
-    private _apiService: ApiserviceService
+    private _apiService: ApiserviceService,
+    private http: HttpClient,
+    private imageDownloadService: ImageDownloadService
+    // private transfer: FileTransfer
   ) { 
+    // this.fileTransfer = this.transfer.create();
     this.route.queryParams.subscribe((params) => {
       const kd_iuran = params['kd_iuran'];
       if (kd_iuran == null) {
@@ -52,6 +61,7 @@ export class UpdateiuranPage implements OnInit {
         this.getIuran();
       }
     });
+    
   }
   async presentToast(msg: string, color: string, icon: string) {
     const toast = await this.toastCtrl.create({
@@ -189,6 +199,18 @@ export class UpdateiuranPage implements OnInit {
       this.presentToast('Error updating data', 'danger', 'alert-circle-outline');
     }
   }
+  async downloadFoto(foto:string) {
+    const imageUrl = foto;
+    this.imageDownloadService.downloadImage(imageUrl).subscribe((data: Blob) => {
+      const url = window.URL.createObjectURL(data);
+      const a = document.createElement('a');
+      document.body.appendChild(a);
+      a.href = url;
+      a.download = 'dowloadan.jpg'; // Ganti dengan nama file yang diinginkan
+      a.click();
+      window.URL.revokeObjectURL(url);
+    });
+}
 
   ngOnInit() {
   }

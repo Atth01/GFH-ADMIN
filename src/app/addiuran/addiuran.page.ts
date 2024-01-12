@@ -25,6 +25,7 @@ export class AddiuranPage implements OnInit {
   public tgl_pembayaran: any;
   public kas_bulan: any;
   public kas_tahun: any;
+  public Penduduk: any;
   public iuran_foto: any;
   
   years: number[] = Array.from({length: 12}, (_, i) => 2019 + i);
@@ -52,6 +53,7 @@ export class AddiuranPage implements OnInit {
       this.tahunList.push(tahunObj)
     } 
     this.getBlok();
+    this.getPenduduk();
   }
   async presentToast(msg: any, color: any, icon: any) {
     const toast = await this.toastCtrl.create({
@@ -72,6 +74,29 @@ export class AddiuranPage implements OnInit {
         } else {
           this.presentToast(
             'Blok not found !',
+            'danger',
+            'alert-circle-outline'
+          );
+        }
+      } else if (res.msg == 'err') {
+        this.presentToast(
+          'Something went wrong',
+          'danger',
+          'alert-circle-outline'
+        );
+      }
+    });
+  }
+  async getPenduduk() {
+    this._apiService.getPenduduk('').then((res) => {
+      if (res.msg == 'ok') {
+        this.Penduduk = Array(res.data);
+        if (res.data !== null) {
+          this.Penduduk = res.data;
+          console.log(this.Penduduk)
+        } else {
+          this.presentToast(
+            'Penduduk not found !',
             'danger',
             'alert-circle-outline'
           );

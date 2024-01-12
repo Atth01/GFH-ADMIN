@@ -22,8 +22,9 @@
             src="{{data.bukti_iuran}}"
             alt="Foto Profile"
             class="rounded mx-2"
-            width="50%"
+            width="100%"
           />
+          <!-- <ion-button (click)="downloadFoto(data.bukti_iuran)">Download Foto</ion-button> Tambahkan tombol download -->
         </div>
     <ion-item>
       <ion-label position="stacked">Ubah Foto</ion-label>
@@ -65,10 +66,14 @@
       <ion-label position="stacked">Kas Tahun</ion-label>
       <ion-input [(ngModel)]="kas_tahun" type="text"></ion-input>
     </ion-item>
-    <ion-item>
-      <ion-label position="stacked">Status</ion-label>
-      <ion-input [(ngModel)]="status" type="text"></ion-input>
-    </ion-item>
+    <ion-list>
+      <ion-item>
+        <ion-select [(ngModel)]="status" label="Status Pembayaran" placeholder="Status Pembayaran">
+          <ion-select-option value="0">Belum Lunas</ion-select-option>
+          <ion-select-option value="1">Lunas</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
     <div class="form-group mt-3">
       <button class="form-control btn" (click)="Update()" style="background: linear-gradient(to bottom, #00e51f, #005d2a); color:white;">
         Update Data
