@@ -5,6 +5,8 @@ import {
   ToastController,
 } from '@ionic/angular';
 import { ApiserviceService } from '../apiservice.service';
+import { MenuController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-login',
@@ -28,6 +30,7 @@ export class LoginPage implements OnInit {
     private _apiService: ApiserviceService,
     private loadingCtrl: LoadingController,
     private navCtrl: NavController,
+    private menuCtrl: MenuController
   ) {}
 
 
@@ -78,4 +81,11 @@ export class LoginPage implements OnInit {
   async register() {
     this.navCtrl.navigateRoot(['/register']);
   }
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
+
+  ionViewWillLeave() {
+    this.menuCtrl.enable(true);
+  }
 }

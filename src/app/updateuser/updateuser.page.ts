@@ -18,6 +18,7 @@ export class UpdateuserPage implements OnInit {
   public kd_user: any;
   public kd_penduduk: any;
   public email: string = '';
+  public nik: string = '';
   public username: string = '';
   public password: string = '';
 
@@ -59,16 +60,14 @@ export class UpdateuserPage implements OnInit {
     try {
       await this.storage.create();
       this._apiService.getUser().then((res: any) => {
-        console.log(res.data);
         if (res.msg == 'ok') {
           this.Data = res.data.filter((item: any) => item.kd_penduduk === this.kd_penduduk);
           if (this.Data.length > 0) {
             const dataItem = this.Data[0];
-            // this.kd_penduduk = dataItem.kd_penduduk;
+            this.nik = dataItem.nik;
             this.email = dataItem.email;
             this.username = dataItem.username;
             this.password = dataItem.password;
-            // this.kd_user = dataItem.kd_user;
           } else {
             this.presentToast('Data not found', 'warning', 'alert-circle-outline');
           }
